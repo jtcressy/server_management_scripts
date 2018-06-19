@@ -46,10 +46,20 @@ class Host:
         self.password = password
         self.port = port
         self.metadata = metadata
-        self.ping()
+        self._name = lcdstring
+        # self.ping()
         if lcdstring:
             self.lcdstring = lcdstring
-            self._set_lcd_string(lcdstring)
+        #     self._set_lcd_string(lcdstring)
+
+    @property
+    def name(self):
+        return self._name
+
+    @name.setter
+    def name(self, value):
+        self._name = value
+        self.lcdstring = value
 
     @staticmethod
     def from_dict(input_dict: dict):
