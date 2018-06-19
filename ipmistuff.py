@@ -1,4 +1,4 @@
-#! /usr/bin/env python
+#! /usr/bin/env python3
 from drac_management import Host
 import sys
 import tabulate
