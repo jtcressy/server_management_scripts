@@ -13,15 +13,23 @@ if __name__ == "__main__":
     parser.add_argument("--power-cycle", action="store_true", help="Cold-reboot selected machines (non-graceful)")
     parser.add_argument("--power-reset", action="store_true", help="Warm-reboot selected machines (non-graceful)")
     parser.add_argument("--force", action="store_true", help="If applicable, non-gracefully perform the action (e.g. force power off)")
-    parser.add_argument("--nodes", nargs='+', help="space-separated list of node names to perform action")
-    parser.add_argument("--all", help="Select all nodes to perform action")
+    parser.add_argument("--nodes", nargs='+', help="space-separated list of machine names to perform action")
+    parser.add_argument("--all", action="store_true", help="Select all machines to perform action")
+    parser.add_argument("--identify-on", action="store_true", help="Enable identity light on selected machines")
+    parser.add_argument("--identify-off", action="store_true", help="Disable identity light on selected machines")
     args = parser.parse_args()
     try:
         hostconfigs = Host.from_instackenv_json(args.instackenv)
         selected_nodes = args.nodes
         for host in hostconfigs:
             lcdstring = host.name
-            if lcdstring in selected_nodes or args.all:
+            if args.all or lcdstring in selected_nodes:
+                if args.identify_on:
+                    host.identify()
+                    print(lcdstring, "ID LED enabled")
+                elif args.identify_off:
+                    host.identify(False)
+                    print(lcdstring, "ID LED disabled")
                 if args.power_on:
                     host.power_on()
                     print(lcdstring, "powered on")

@@ -199,6 +199,14 @@ class Host:
         """
         return bool(self._send_command("chassis power reset")) if self.ping() else False
 
+    def identify(self, enable=True) -> bool:
+        """
+        Enable or disable the identity light (HP stays lit, dell flashes, etc)
+        :return: bool: successful or not
+        """
+        return bool(self._send_command(f"chassis identify {'' if enable else '0'}")) if self.ping() else False
+
+
 
 if __name__ == "__main__":
     print("drac_management testing")
