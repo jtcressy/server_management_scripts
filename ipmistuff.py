@@ -36,6 +36,8 @@ if __name__ == "__main__":
                     print(lcdstring, "power reset")
                 print(lcdstring, "power state:", host.powerstate)
         nodes = json.loads(Host.to_instackenv_json(hostconfigs))['nodes']
+        # lets avoid printing the pm_password by cutting it out of the dictionary
+        nodes = [dict([(k,v) for k, v in node.items() if k not in ['pm_password']]) for node in nodes]
         header = nodes[0].keys()
         rows = [x.values() for x in nodes]
         print(tabulate.tabulate(rows, header))
