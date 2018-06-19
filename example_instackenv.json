@@ -1,0 +1,18 @@
+{
+  "nodes": [
+    {
+      "mac": [
+		""
+	  ],
+      "name": "dummybox",
+      "cpu": "24",
+      "ram": "64000",
+      "arch": "x86_64",
+      "pm_addr": "127.0.0.1",
+      "disk": "240",
+      "pm_type": "pxe_ipmitool",
+      "pm_user": "user",
+      "pm_password": "password"
+    }
+  ]
+}
